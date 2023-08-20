@@ -1,0 +1,10 @@
+controller:
+  metrics:
+    enabled: true
+    serviceMonitor:
+      additionalLabels:
+        release: monitoring
+      enabled: true
+    service:
+      prometheus.io/scrape: "true"
+      prometheus.io/port: "10254"
