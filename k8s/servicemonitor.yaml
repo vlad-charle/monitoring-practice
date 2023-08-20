@@ -1,0 +1,16 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: monitoring-my-app
+  labels:
+    release: monitoring
+    app: my-app
+spec:
+  endpoints:
+    - port: my-app-metrics-port
+  namespaceSelector: 
+    matchNames:
+    - my-app
+  selector:
+    matchLabels:
+      app: my-app

@@ -7,7 +7,8 @@ metadata:
 spec:
   ingressClassName: nginx
   rules:
-  - http:
+  - host: localhost
+    http:
       paths: 
       - path: /team
         pathType: Prefix
@@ -30,3 +31,10 @@ spec:
             name: my-app
             port:
               number: 8080
+      - path: /metrics
+        pathType: Prefix
+        backend:
+          service:
+            name: my-app
+            port:
+              number: 8081
