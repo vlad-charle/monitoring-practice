@@ -2,7 +2,7 @@
 echo "Start load generation"
 INGRESS_PATHS=('/' '/team' '/v1')
 i=1
-while [ $i -le 50 ]
+while [ $i -le 100 ]
 do
   echo "Iteration: $i"
   for INGRESS_PATH in ${INGRESS_PATHS[@]}

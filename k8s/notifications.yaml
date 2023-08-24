@@ -1,0 +1,40 @@
+apiVersion: monitoring.coreos.com/v1alpha1
+kind: AlertmanagerConfig
+metadata:
+  name: main-notifications-config
+  labels:
+    alertmanagerConfig: config
+spec:
+  receivers:
+  - name: 'email'
+    emailConfigs:
+    - to: $EMAIL_TO
+      from: $EMAIL_FROM
+      smarthost: 'smtp.gmail.com:587'
+      authIdentity: $EMAIL_FROM
+      authUsername: $EMAIL_FROM
+      authPassword: 
+        name: gmail
+        key: password
+  - name: 'slack'
+    slackConfigs:
+    - apiURL:
+        name: slack
+        key: api-url
+      channel: '#monitoring-notifications'
+      text: 'Summary: {{ .CommonAnnotations.summary }}\nDescription: {{ .CommonAnnotations.description }}"'
+      username: 'AlertManager'
+      iconURL: 'https://prometheus.io/assets/favicons/android-chrome-192x192.png'
+      sendResolved: true
+  route:
+    receiver: 'slack'
+    repeatInterval: 30m
+    routes:
+    - matchers:
+      - name: sentTo
+        value: slack
+      receiver: 'slack'
+    - matchers:
+      - name: sentTo
+        value: email
+      receiver: 'email'

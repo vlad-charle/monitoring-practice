@@ -2,3 +2,9 @@ prometheus:
   prometheusSpec:
     serviceMonitorSelectorNilUsesHelmValues: false
     podMonitorSelectorNilUsesHelmValues: false
+alertmanager:
+  alertmanagerSpec:
+    logLevel: debug
+    alertmanagerConfigSelector:
+      matchLabels:
+        alertmanagerConfig: config
